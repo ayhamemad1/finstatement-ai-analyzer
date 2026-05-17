@@ -57,10 +57,7 @@ npm start
 
 Then click `AI analysis` in the app.
 
-The backend uses the OpenAI Responses API:
-
-- [Responses API reference](https://platform.openai.com/docs/api-reference/responses)
-- [OpenAI models documentation](https://platform.openai.com/docs/models)
+The backend uses OpenAI through a small server-side proxy. Check the OpenAI developer documentation for current API and model details.
 
 ## Expected Import Format
 

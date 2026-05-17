@@ -25,6 +25,10 @@ const els = {
   expenseKpi: document.getElementById("expense-kpi"),
   netKpi: document.getElementById("net-kpi"),
   riskKpi: document.getElementById("risk-kpi"),
+  signalStatus: document.getElementById("signal-status"),
+  signalCategory: document.getElementById("signal-category"),
+  signalWatch: document.getElementById("signal-watch"),
+  signalMode: document.getElementById("signal-mode"),
   merchantList: document.getElementById("merchant-list"),
   findingsList: document.getElementById("findings-list"),
   anomalyList: document.getElementById("anomaly-list"),
@@ -311,6 +315,8 @@ function renderAll() {
 function renderKpis() {
   const analytics = state.analytics || { summary: { income: 0, expenses: 0, net: 0, riskScore: 0 } };
   const dates = state.transactions.map((tx) => tx.date).sort();
+  const topCategory = Object.entries(analytics.categoryTotals || {}).sort((a, b) => b[1] - a[1])[0];
+  const watchCount = (analytics.anomalies || []).length + (analytics.recurring || []).length;
 
   els.txCount.textContent = state.transactions.length;
   els.dateRange.textContent = dates.length ? `${dates[0]} to ${dates.at(-1)}` : "No data";
@@ -318,6 +324,10 @@ function renderKpis() {
   els.expenseKpi.textContent = money(analytics.summary.expenses);
   els.netKpi.textContent = money(analytics.summary.net);
   els.riskKpi.textContent = analytics.summary.riskScore;
+  els.signalStatus.textContent = state.transactions.length ? "Analyzed and indexed" : "Waiting for import";
+  els.signalCategory.textContent = topCategory ? `${topCategory[0]} ${money(topCategory[1])}` : "No data";
+  els.signalWatch.textContent = `${watchCount} flagged`;
+  els.signalMode.textContent = state.serverReady && state.hasServerKey ? "OpenAI ready" : "Local engine";
 }
 
 function renderTables() {
