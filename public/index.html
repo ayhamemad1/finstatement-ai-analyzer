@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinStatement AI Analyzer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">FS</div>
+        <div>
+          <h1>FinStatement AI</h1>
+          <p>Bank statement intelligence studio</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard" type="button">Dashboard</button>
+        <button class="nav-item" data-view="transactions" type="button">Transactions</button>
+        <button class="nav-item" data-view="insights" type="button">Insights</button>
+        <button class="nav-item" data-view="import" type="button">Import</button>
+      </nav>
+
+      <section class="health-card">
+        <div class="status-row">
+          <span id="server-dot" class="dot"></span>
+          <span id="server-status">Checking server</span>
+        </div>
+        <div class="metric-mini">
+          <strong id="tx-count">0</strong>
+          <span>transactions</span>
+        </div>
+        <div class="metric-mini">
+          <strong id="date-range">No data</strong>
+          <span>date range</span>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">AI-powered personal finance analytics</span>
+          <h2 id="view-title">Dashboard</h2>
+        </div>
+        <div class="toolbar">
+          <button id="load-sample" class="soft-button" type="button">Load sample</button>
+          <button id="export-json" class="soft-button" type="button">Export JSON</button>
+          <button id="run-ai" class="primary-button" type="button">AI analysis</button>
+        </div>
+      </header>
+
+      <section id="dashboard-view" class="view active">
+        <div class="kpi-grid">
+          <article class="kpi">
+            <span>Income</span>
+            <strong id="income-kpi">$0</strong>
+            <small id="income-note">Deposits and credits</small>
+          </article>
+          <article class="kpi">
+            <span>Expenses</span>
+            <strong id="expense-kpi">$0</strong>
+            <small id="expense-note">Withdrawals and debits</small>
+          </article>
+          <article class="kpi">
+            <span>Net Cashflow</span>
+            <strong id="net-kpi">$0</strong>
+            <small id="net-note">Income minus expenses</small>
+          </article>
+          <article class="kpi">
+            <span>Risk Score</span>
+            <strong id="risk-kpi">0</strong>
+            <small id="risk-note">Anomalies and concentration</small>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel wide">
+            <div class="panel-heading">
+              <h3>Cashflow Timeline</h3>
+              <span id="timeline-caption">Monthly movement</span>
+            </div>
+            <canvas id="cashflow-chart" width="920" height="320"></canvas>
+          </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Spending Mix</h3>
+              <span>By category</span>
+            </div>
+            <canvas id="category-chart" width="420" height="320"></canvas>
+          </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Top Merchants</h3>
+              <span>Expense concentration</span>
+            </div>
+            <div id="merchant-list" class="stack-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="transactions-view" class="view">
+        <section class="panel">
+          <div class="panel-heading">
+            <h3>Transaction Ledger</h3>
+            <div class="filter-row">
+              <input id="search-input" type="search" placeholder="Search description, category, merchant">
+              <select id="category-filter">
+                <option value="all">All categories</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Merchant</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Balance</th>
+                  <th>Flags</th>
+                </tr>
+              </thead>
+              <tbody id="transaction-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="insights-view" class="view">
+        <div class="insight-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Smart Findings</h3>
+              <span>Rule-based and AI-ready</span>
+            </div>
+            <div id="findings-list" class="finding-list"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Anomalies</h3>
+              <span>High value and unusual activity</span>
+            </div>
+            <div id="anomaly-list" class="stack-list"></div>
+          </section>
+          <section class="panel wide">
+            <div class="panel-heading">
+              <h3>AI Analyst Memo</h3>
+              <span id="ai-caption">Uses local fallback until OpenAI is configured</span>
+            </div>
+            <div id="ai-memo" class="memo">
+              Load transactions and click AI analysis to generate a finance review.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="import-view" class="view">
+        <div class="import-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Import Statement</h3>
+              <span>CSV or pasted text</span>
+            </div>
+            <label class="field-label">Statement file</label>
+            <input id="file-input" type="file" accept=".csv,.txt,.tsv,.json">
+            <label class="field-label">Paste transactions</label>
+            <textarea id="paste-input" rows="12" placeholder="Date, Description, Debit, Credit, Balance"></textarea>
+            <div class="button-row">
+              <button id="parse-paste" class="primary-button" type="button">Parse pasted data</button>
+              <button id="clear-data" class="danger-button" type="button">Clear data</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>AI Settings</h3>
+              <span>Optional</span>
+            </div>
+            <label class="field-label">Temporary OpenAI API key</label>
+            <input id="api-key" type="password" placeholder="Prefer server OPENAI_API_KEY">
+            <label class="field-label">Model</label>
+            <select id="model-select">
+              <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+              <option value="gpt-5.1">gpt-5.1</option>
+              <option value="gpt-4.1">gpt-4.1</option>
+            </select>
+            <p class="help-text">
+              The app analyzes locally first. OpenAI is only used when you click AI analysis.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>

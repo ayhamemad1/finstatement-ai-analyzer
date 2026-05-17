@@ -1,0 +1,25 @@
+{
+  "name": "finstatement-ai-analyzer",
+  "version": "1.0.0",
+  "description": "AI-powered financial statement analyzer with transaction parsing, categorization, risk insights, and an optional OpenAI analysis proxy.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  },
+  "keywords": [
+    "finance",
+    "bank-statement",
+    "openai",
+    "analytics",
+    "dashboard",
+    "csv",
+    "personal-finance"
+  ],
+  "author": "Ayham",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
