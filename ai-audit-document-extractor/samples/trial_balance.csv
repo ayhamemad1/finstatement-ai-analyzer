@@ -1,0 +1,5 @@
+account,balance,debit,credit
+Cash,15000,15000,0
+Accounts Receivable,12000,12000,0
+Accounts Payable,-7000,0,7000
+Equity,-20000,0,20000

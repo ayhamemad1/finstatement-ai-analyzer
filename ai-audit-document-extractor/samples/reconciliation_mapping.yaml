@@ -1,0 +1,17 @@
+rules:
+  - name: cash_total
+    source_filter:
+      line_item: Cash and cash equivalents
+    source_amount_column: amount
+    target_filter:
+      account: Cash
+    target_amount_column: balance
+    tolerance: 1.0
+  - name: receivables_total
+    source_filter:
+      line_item: Trade receivables
+    source_amount_column: amount
+    target_filter:
+      account: Accounts Receivable
+    target_amount_column: balance
+    tolerance: 1.0

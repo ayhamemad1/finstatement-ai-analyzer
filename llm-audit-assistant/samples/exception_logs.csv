@@ -1,0 +1,4 @@
+exception_id,severity,status,owner,description
+EX-001,high,open,Finance,Manual journal entry missing independent review
+EX-002,medium,closed,Audit,Revenue exception had delayed contract evidence
+EX-003,high,open,Operations,Receivables aging review not completed on schedule
