@@ -1,8 +1,23 @@
 # FinStatement AI Analyzer
 
-A professional financial statement intelligence dashboard for parsing bank statements, categorizing transactions, detecting anomalies, and generating AI-ready financial insights.
+A financial and audit intelligence toolkit for turning statements, extracted tables, and audit documents into structured insights.
 
-This project is designed as a portfolio-grade companion to OCR and RAG workflows: extract transactions from statements, import them here, and turn raw bank activity into decision-ready analytics.
+The repository now includes a polished bank-statement analytics dashboard plus Python audit tools for document extraction, validation, reconciliation, and grounded audit Q&A. It is designed as a portfolio-grade workflow for finance and audit teams that need to move from messy files to decision-ready evidence.
+
+## Included Projects
+
+| Project | Purpose | Stack |
+|---|---|---|
+| **Statement Analyzer Dashboard** | Import bank activity, categorize transactions, detect anomalies, and generate analyst memos. | JavaScript, Node.js, OpenAI optional |
+| **AI Audit Document Extractor** | Extract tables from CSV, Excel, and text-based PDFs, then validate and reconcile totals. | Python, Pandas, pdfplumber, PyYAML |
+| **LLM Audit Assistant** | Build a local retrieval index over policies, reports, and exception logs for citation-backed answers. | Python, scikit-learn, Pandas |
+
+## Portfolio Value
+
+- Shows end-to-end thinking across data ingestion, analytics, validation, reconciliation, and AI-assisted review.
+- Connects frontend product design with backend automation and Python audit workflows.
+- Uses local-first defaults with optional OpenAI features, which keeps demos safe and easy to run.
+- Includes sample data, tests, CLI workflows, and GitHub Actions CI for the Python subprojects.
 
 ## Features
 
